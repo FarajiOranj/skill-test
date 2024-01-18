@@ -37,6 +37,7 @@
     "web3": "^1.6.1"
   },
   "scripts": {
+    "start:dev": "craco start",
     "start": "export SET NODE_OPTIONS=--openssl-legacy-provider && craco start",
     "test": "craco test",
     "eject": "react-scripts eject"

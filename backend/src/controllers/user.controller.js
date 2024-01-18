@@ -107,6 +107,8 @@ class UserController {
     userLogin = async (req, res, next) => {
         try {
             console.log("User called userLogin!!!!")
+            // const { result, statusCode } = await UserService.userLogin(req.body)
+            // res.status(statusCode || 200).send(result)
             const result = await UserService.userLogin(req.body)
             res.send(result)
         } catch (error) {
@@ -118,9 +120,11 @@ class UserController {
         try {
             console.log("User called userSignup!!!!")
             let password = req.body.password;
-            const signup = await UserService.signUp(req.body)
+            const signup = await UserService.signUp(req.body);
+            console.log('signup  =>>>>> ', signup);
             if (signup.response) {
-                const result = await UserService.userLogin({email:req.body.email, password: password})
+                const result = await UserService.userLogin({ email: req.body.email, password: password });
+                console.log('result loginnnnnnnnn ', result);
                 res.send(result)
             } else {
                 res.send(signup)

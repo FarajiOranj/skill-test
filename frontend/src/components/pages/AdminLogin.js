@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { Input, Form } from 'antd';
-import { 
+import {
     MailOutlined,
     LockOutlined
 } from '@ant-design/icons';
@@ -12,7 +12,7 @@ import Wallet from "../../utils/wallet";
 import { SERVER_URL } from "../../constants/env";
 import { motion } from "framer-motion";
 
-const { Password,  } = Input;
+const { Password, } = Input;
 const wallet = new Wallet();
 
 function LogIn() {
@@ -22,36 +22,36 @@ function LogIn() {
 
     const login = () => {
         return form.validateFields()
-                .then((values) => {
-                  console.log("validateFile")
-                  axios.post(SERVER_URL + "users/login",{
-                    email:email,
-                    password:password
-                  }).then(response=>{
-                    if(response.data.response){
-                      
-                      // setMessage({style:'text-green-500',val:true,data:"Successful! Welcome to our site."});
-                      localStorage.setItem("userInfo", JSON.stringify(response.data.data.userInfo));
-                      localStorage.setItem("jwtToken", JSON.stringify(response.data.data.token));
-                      console.log(response.data.data)
-                      if(response.data.data.keyPair){
-                        localStorage.setItem("privateKey",wallet.decrypt(response.data.data.keyPair[0].privateKey));
-                        localStorage.setItem("publicKey",response.data.data.keyPair[0].publicKey);
-                      }
-                      openNotification('Successful','Welcome to our site.', true,goMain);
-                      setAuthToken(response.data.data.token);
+            .then((values) => {
+                console.log("validateFile")
+                axios.post(SERVER_URL + "users/login", {
+                    email: email,
+                    password: password
+                }).then(response => {
+                    if (response.data.response) {
+
+                        // setMessage({style:'text-green-500',val:true,data:"Successful! Welcome to our site."});
+                        localStorage.setItem("userInfo", JSON.stringify(response.data.data.userInfo));
+                        localStorage.setItem("jwtToken", JSON.stringify(response.data.data.token));
+                        console.log(response.data.data)
+                        if (response.data.data.keyPair) {
+                            localStorage.setItem("privateKey", wallet.decrypt(response.data.data.keyPair[0].privateKey));
+                            localStorage.setItem("publicKey", response.data.data.keyPair[0].publicKey);
+                        }
+                        openNotification('Successful', 'Welcome to our site.', true, goMain);
+                        setAuthToken(response.data.data.token);
                     }
-                    else{
-                      openNotification('Login Failed',response.data.message,false);
-                      // setMessage({style:'text-red-500',val:false,data:"Login failed! "})
+                    else {
+                        openNotification('Login Failed', response.data.message, false);
+                        // setMessage({style:'text-red-500',val:false,data:"Login failed! "})
                     }
-                  })
                 })
-                .catch((errorInfo) => {});
+            })
+            .catch((errorInfo) => { });
     }
 
-    const goMain=()=>{
-        window.location.href="/admin";
+    const goMain = () => {
+        window.location.href = "/admin";
     }
 
     return (
@@ -77,36 +77,36 @@ function LogIn() {
                             rules={[
                                 { type: 'email', message: 'Please enter a correct email address' },
                                 { required: true, message: 'Please input your E-mail!' },
-                                { max:50, message: 'Please input less than 50 characters' }
+                                { max: 50, message: 'Please input less than 50 characters' }
                             ]}
                         >
-                            <Input 
-                                size="large" 
-                                placeholder={'E-mail address'} 
-                                prefix={<MailOutlined className="m-2"/> } 
+                            <Input
+                                size="large"
+                                placeholder={'E-mail address'}
+                                prefix={<MailOutlined className="m-2" />}
                                 className=" rounded-lg p-3 text-black "
-                                onChange={(e)=>setEmail(e.target.value)}/>
+                                onChange={(e) => setEmail(e.target.value)} />
                         </Form.Item>
-                        
+
                         <Form.Item
                             name="password"
                             rules={[
                                 { required: true, message: 'Please input your password!' },
-                                { min:8, message: 'Please input more than 8 characters' }
+                                { min: 8, message: 'Please input more than 8 characters' }
                             ]}
                         >
-                            <Input.Password 
-                                size="large" 
-                                placeholder={'enter password here'} 
-                                prefix={<LockOutlined className="m-2"/> }
+                            <Input.Password
+                                size="large"
+                                placeholder={'enter password here'}
+                                prefix={<LockOutlined className="m-2" />}
                                 className="rounded-lg p-3"
-                                onChange={(e)=>setPassword(e.target.value)}/>
+                                onChange={(e) => setPassword(e.target.value)} />
                         </Form.Item>
 
-                    
+
                         {/*<span className={`${message.style} text-lg`}>{message.val==1?<FcOk className="inline mr-2"/>:message.val==0?<FcCancel className="inline mr-2"/>:null}{message.data}</span>*/}
                         <Form.Item className="mt-2">
-                            <button  onClick={login} type="submit" className="w-full bg-gray-800 text-md font-bold text-white  rounded-lg py-2">
+                            <button onClick={login} type="submit" className="w-full bg-gray-800 text-md font-bold text-white  rounded-lg py-2">
                                 Sign In
                             </button>
                         </Form.Item>
