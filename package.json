@@ -1,0 +1,28 @@
+{
+  "name": "mgl",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "concurrently \"cd backend && npm i\" \"cd frontend && yarn install\"",
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "private"
+  },
+  "keywords": [
+    "front-end",
+    "back-end",
+    "blockchain",
+    "expressjs",
+    "reactjs"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
